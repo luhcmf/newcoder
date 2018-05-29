@@ -8,7 +8,7 @@ except:
     print('port unconnected')
 sleep(0.5)
 while ser.name:
-    while ser.inWaiting():
+    while ser.in_waiting():
         val = ser.read(ser.inWaiting())
         print(val)
         #print(int.from_bytes(val,byteorder='big'))        

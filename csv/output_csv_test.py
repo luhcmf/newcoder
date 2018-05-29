@@ -1,5 +1,6 @@
 import csv
 
+myfilepath = 'D:/papa/python/csv/temp/outputtest.csv'
 '''
 # output csv
 myfilepath = 'D:/papa/python/csv/temp/outputtest.csv'
@@ -18,7 +19,7 @@ with open('testfile.csv',newline='') as csvfile:
         print(row)
 '''
 
-with open('testfile.csv','a',newline='') as csvfile:    # a for append
+with open(myfilepath,'a',newline='') as csvfile:    # a for append
     file = csv.writer(csvfile,delimiter = ',')  #default delimiter = ','
     
     file.writerow(['2','22'])
