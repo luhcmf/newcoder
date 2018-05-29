@@ -49,6 +49,8 @@ void time_waiting(int count){
 void counting(){
   time_counting++;
 //  Serial.println(time_counting);
+  lcd.setCursor(12,0);
+  lcd.print((wait_count-time_counting));
   if(time_counting >= wait_count){
     Timer1.detachInterrupt();
     timer_state = false;
