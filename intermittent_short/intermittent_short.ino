@@ -126,6 +126,8 @@ void loop() {
         lcd.print("power off    ");
       }
       else if(!timer_state && timer_isr){
+        if(cycles == test_cycle)
+          state = stop_run;
         cycles++;
         state = phase1;
         timer_isr = false;
@@ -134,9 +136,7 @@ void loop() {
 //        lcd.clear();
         lcd.setCursor(8,0);
         lcd.print((cycles+1));
-//        Serial.println("power 0ff end");
-        if(cycles == test_cycle)
-          state = stop_run;
+//        Serial.println("power 0ff end");        
       }
     }
     else if(state == stop_run){
