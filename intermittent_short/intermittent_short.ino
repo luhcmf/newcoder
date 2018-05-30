@@ -9,7 +9,7 @@ LiquidCrystal_I2C lcd(0x20, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 #define pwr_off   0x04
 #define stop_run  0x05
 #define test_cycle  60
-//the folowing timer unit is in second
+//the folowing time unit is in second
 #define phase1_cnt  15   //connect to power, do nothing
 #define phase2_cnt  300   //short the circuit
 #define phase3_cnt  165   //open the circuit, wait to switch off the power
@@ -48,9 +48,6 @@ void time_waiting(int count){
 
 void counting(){
   time_counting++;
-//  Serial.println(time_counting);
-  lcd.setCursor(12,0);
-  lcd.print((wait_count-time_counting));
   if(time_counting >= wait_count){
     Timer1.detachInterrupt();
     timer_state = false;
@@ -59,7 +56,17 @@ void counting(){
 //    Serial.println(time_counting);
   }
 }
-void loop() {    
+void loop() {
+  lcd.setCursor(12,0);
+  lcd.print((wait_count-time_counting));
+    if(wait_count-time_counting < 10){
+    lcd.setCursor(13,0);
+    lcd.print("  ");
+  }
+  else if(wait_count-time_counting < 100){
+    lcd.setCursor(14,0);
+    lcd.print(" ");
+  }   
     if(state == phase1){
       // nothing for 15s
       if(!timer_state && !timer_isr){
@@ -68,7 +75,7 @@ void loop() {
         digitalWrite(Vbat,HIGH);
 //        Serial.println("connect to power");
         lcd.setCursor(0,1);
-        lcd.print("power on     ");
+        lcd.print("power on     ");        
       }
       else if(!timer_state && timer_isr){
         state = phase2;
