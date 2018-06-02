@@ -66,7 +66,7 @@ void loop() {
   else if(wait_count-time_counting < 100){
     lcd.setCursor(14,0);
     lcd.print(" ");
-  }   
+  }
     if(state == phase1){
       // nothing for 15s
       if(!timer_state && !timer_isr){
@@ -128,15 +128,17 @@ void loop() {
       else if(!timer_state && timer_isr){
         if(cycles == test_cycle)
           state = stop_run;
-        cycles++;
-        state = phase1;
-        timer_isr = false;
+        else{
+          cycles++;
+          state = phase1;
+          timer_isr = false;
 //        Serial.print("cycle number:  ");
 //        Serial.println(cycles);
 //        lcd.clear();
-        lcd.setCursor(8,0);
-        lcd.print((cycles+1));
-//        Serial.println("power 0ff end");        
+          lcd.setCursor(8,0);
+          lcd.print((cycles+1));
+//        Serial.println("power 0ff end");
+        }        
       }
     }
     else if(state == stop_run){
