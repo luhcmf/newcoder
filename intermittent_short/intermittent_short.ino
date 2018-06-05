@@ -15,7 +15,7 @@ LiquidCrystal_I2C lcd(0x20, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 #define phase3_cnt  165   //open the circuit, wait to switch off the power
 #define pwr_off_cnt 10   //a break
 
-int state, wait_count,time_counting, cycles;
+int state, wait_count,time_counting, cycles = 1;
 bool timer_state = false,timer_isr = false;
 const int short_pin = 3,Vbat = 4, GND = 5;
 
@@ -36,7 +36,7 @@ void setup() {
   lcd.clear();
   lcd.print("cycles:");
   lcd.setCursor(8,0);
-  lcd.print(1);
+  lcd.print(cycles);
 }
 
 void time_waiting(int count){
@@ -126,17 +126,18 @@ void loop() {
         lcd.print("power off    ");
       }
       else if(!timer_state && timer_isr){
+        timer_isr = false;
         if(cycles == test_cycle)
           state = stop_run;
         else{
           cycles++;
-          state = phase1;
-          timer_isr = false;
+          state = phase1;          
 //        Serial.print("cycle number:  ");
 //        Serial.println(cycles);
 //        lcd.clear();
           lcd.setCursor(8,0);
-          lcd.print((cycles+1));
+          lcd.print(cycles);
+//          Serial.println(cycles);
 //        Serial.println("power 0ff end");
         }        
       }
