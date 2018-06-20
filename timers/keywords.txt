@@ -1,0 +1,9 @@
+timerOne		KEYWORD1
+timerThree	KEYWORD1
+timerFour		KEYWORD1
+timerFive		KEYWORD1
+
+init			KEYWORD2
+setTimer		KEYWORD2
+startTimer	KEYWORD2
+stopTimer		KEYWORD2
