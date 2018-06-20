@@ -20,7 +20,10 @@ class timerOne
 		timerOne(){
 		}
 		static void (*funcCallback)();
-		setTimer(unsigned long microseconds){			
+		setTimer(unsigned long microseconds){
+			//noInterrupts();
+			//TCCR1A = 0;
+			//TCCR1B = 0;
 			TCNT1 = 0;
 			comvalue = microseconds*16;
 			if(comvalue < resolution){
@@ -47,7 +50,8 @@ class timerOne
 				comvalue = resolution - 1;
 				TCCR1B |= _BV(CS10) | _BV(CS12) | _BV(WGM12);
 			}
-			OCR1A = comvalue;	
+			OCR1A = comvalue;
+			//interrupts();
 		}
 		init(unsigned long microseconds){
 			noInterrupts();
@@ -72,6 +76,7 @@ class timerOne
 };
 extern timerOne timer1;
 
+#if defined(__AVR_ATmega2560__)
 class timerThree
 {	
 	unsigned long comvalue;
@@ -80,7 +85,10 @@ class timerThree
 		timerThree(){
 		}
 		static void (*funcCallback)();
-		setTimer(unsigned long microseconds){			
+		setTimer(unsigned long microseconds){
+			//noInterrupts();
+			//TCCR1A = 0;
+			//TCCR1B = 0;
 			TCNT3 = 0;
 			comvalue = microseconds*16;
 			if(comvalue < resolution){
@@ -107,7 +115,8 @@ class timerThree
 				comvalue = resolution - 1;
 				TCCR3B |= _BV(CS30) | _BV(CS32) | _BV(WGM32);
 			}
-			OCR3A = comvalue;		
+			OCR3A = comvalue;
+			//interrupts();
 		}
 		init(unsigned long microseconds){
 			noInterrupts();
@@ -167,7 +176,8 @@ class timerFour
 				comvalue = resolution - 1;
 				TCCR4B |= _BV(CS40) | _BV(CS42) | _BV(WGM42);
 			}
-			OCR4A = comvalue;			
+			OCR4A = comvalue;
+			//interrupts();
 		}
 		init(unsigned long microseconds){
 			noInterrupts();
@@ -227,7 +237,8 @@ class timerFive
 				comvalue = resolution - 1;
 				TCCR5B |= _BV(CS50) | _BV(CS52) | _BV(WGM52);
 			}
-			OCR5A = comvalue;		
+			OCR5A = comvalue;
+			//interrupts();
 		}
 		init(unsigned long microseconds){
 			noInterrupts();
@@ -251,4 +262,5 @@ class timerFive
 		}		
 };
 extern timerFive timer5;
+#endif
 #endif

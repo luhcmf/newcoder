@@ -76,6 +76,7 @@ class timerOne
 };
 extern timerOne timer1;
 
+#if defined(__AVR_ATmega2560__)
 class timerThree
 {	
 	unsigned long comvalue;
@@ -261,4 +262,5 @@ class timerFive
 		}		
 };
 extern timerFive timer5;
+#endif
 #endif
