@@ -1,7 +1,7 @@
 #include "TimerOne.h"
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
-LiquidCrystal_I2C lcd(0x20, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
+LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
 #define phase1    0x01
 #define phase2    0x02
@@ -17,7 +17,7 @@ LiquidCrystal_I2C lcd(0x20, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
 int state, wait_count,time_counting, cycles = 1;
 bool timer_state = false,timer_isr = false;
-const int short_pin = 3,Vbat = 4, GND = 5;
+const int short_pin = 3,Vbat = 4, IGN = 5;
 
 void setup() {
   // put your setup code here, to run once:
@@ -26,7 +26,7 @@ void setup() {
   Timer1.initialize(1000);
   pinMode(short_pin,OUTPUT);
   pinMode(Vbat,OUTPUT);
-  pinMode(GND,OUTPUT);
+  pinMode(IGN,OUTPUT);
   state = phase1;  
   lcd.setCursor(0,0);
   lcd.print("Ready");
@@ -89,6 +89,7 @@ void loop() {
         time_waiting(phase2_cnt);
         //short the circuit
         digitalWrite(short_pin,HIGH);
+        digitalWrite(IGN,HIGH);
 //        Serial.println("short the circuit");
         lcd.setCursor(0,1);
         lcd.print("short circuit");
@@ -98,6 +99,7 @@ void loop() {
         timer_isr = false;
 //        Serial.println("phase2 end");
         digitalWrite(short_pin,LOW);
+        digitalWrite(IGN,LOW);
 //        Serial.println("open the circuit");
       }
     }
