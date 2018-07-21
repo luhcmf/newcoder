@@ -14,6 +14,7 @@ const int m1_p = 2, m1_n = 3, m2_p = 4, m2_n = 5;
 const int s1=22, s2=24, s3=26, s4=28,
           s5=30, s6=32, s7=34, s8=36;
 static bool sw1_auto, sw2_auto;
+static int m1_cycle, m2_cycle;
 
 ExponentialFilter <double> filter1(50,0);
 ExponentialFilter <double> filter2(50,0);
@@ -86,6 +87,8 @@ void auto_loop(){
       //motor1 stop
       m1_stop();
       m1_break = true;
+      if(m1_state == go_down)
+        m1_cycle++;
     }
     if(m1_break){
       m1_count++;
@@ -106,6 +109,8 @@ void auto_loop(){
       //motor2 stop
       m2_stop();
       m2_break = true;
+      if(m2_state == go_down)
+        m1_cycle++;
     }
     if(m2_break){
       m2_count++;
