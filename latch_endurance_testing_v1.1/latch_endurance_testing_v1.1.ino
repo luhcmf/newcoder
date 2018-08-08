@@ -1,3 +1,5 @@
+/*  version 1.2 */
+
 #include <EEPROM.h>
 #include <LiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3,POSITIVE);
@@ -93,7 +95,7 @@ ISR(TIMER1_COMPA_vect){
     Boolean = 1;
    }else {
     Boolean = 0;
-    Error = 1;
+    Error = 1;  //initial lock state error
    }
    
  }
@@ -121,7 +123,7 @@ ISR(TIMER1_COMPA_vect){
       Boolean = 4;
     }else{
       state = 1;
-      Error = 1;
+      Error = 2;    //not locked
     }
   }
   if (Boolean == 4){                 //open
@@ -172,7 +174,7 @@ ISR(TIMER1_COMPA_vect){
     if (motor_time >= 400){
       digitalWrite(relay3,LOW);
       motor_time = 0;
-      Error = 1;
+      Error = 3;    //unlock fail
       state = 1;
       motor_factor = 0;
     }
@@ -236,6 +238,8 @@ void loop() {
    lcd.print(real_time);
    lcd.setCursor(0,2);
    lcd.print("ERROR");
+   lcd.setCursor(0,3);
+   lcd.print("init lock state");
   }
   if (Error == 2){
    lcd.clear();
@@ -247,6 +251,8 @@ void loop() {
    lcd.print(real_time);
    lcd.setCursor(0,2);
    lcd.print("ERROR");
+   lcd.setCursor(0,3);
+   lcd.print("lock fail");
   }
   if (Error == 3){
    lcd.clear();
@@ -258,6 +264,8 @@ void loop() {
    lcd.print(real_time);
    lcd.setCursor(0,2);
    lcd.print("ERROR");
+   lcd.setCursor(0,3);
+   lcd.print("unlock fail");
   }    
 delay(5);
 
