@@ -116,10 +116,19 @@ void loop() {
   }
 
   double I1 = (analogRead(A7)/1024.0*5000-2500)/66;
-  lcd.setCursor(1,0);
-  lcd.print(I1);
+  lcd.setCursor(0,1);
+  lcd.print(abs(I1));
   double I2 = (analogRead(A8)/1024.0*5000-2500)/66;
-  lcd.setCursor(2,0);
-  lcd.print(I2);
-  
+  lcd.setCursor(0,2);
+  lcd.print(abs(I2));
+
+  if(abs(I1) > 10){
+    digitalWrite(relayL1,LOW);
+    digitalWrite(relayL2,LOW);
+  }
+  if(abs(I2) > 10){
+    digitalWrite(relayU1,LOW);
+    digitalWrite(relayU2,LOW);
+  }
+  delay(20);
 }
