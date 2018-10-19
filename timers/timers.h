@@ -72,7 +72,13 @@ class timerOne
 		}
 		stopTimer(){
 			TIMSK1 = 0;
-		}		
+		}
+		isRunning() {
+			if (TIMSK1 == 0)
+				return false;
+			else
+				return true;
+		}
 };
 extern timerOne timer1;
 
@@ -138,6 +144,12 @@ class timerThree
 		stopTimer(){
 			TIMSK3 = 0;
 		}		
+		isRunning() {
+			if (TIMSK3 == 0)
+				return	false;
+			else
+				return	true;
+		}
 };
 extern timerThree timer3;
 
@@ -198,7 +210,13 @@ class timerFour
 		}
 		stopTimer(){
 			TIMSK4 = 0;
-		}		
+		}
+		isRunning() {
+			if (TIMSK4 == 0)
+				return false;
+			else
+				return true;
+		}
 };
 extern timerFour timer4;
 
@@ -259,7 +277,13 @@ class timerFive
 		}
 		stopTimer(){
 			TIMSK5 = 0;
-		}		
+		}
+		isRunning() {
+			if (TIMSK5 == 0)
+				return	false;
+			else
+				return	true;
+		}
 };
 extern timerFive timer5;
 #endif
